@@ -11,15 +11,19 @@ app.set("view engine", "ejs");
 app.set("views",path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
-let posts = [    {
+let posts = [    
+    {
+        id: "1a",
         username : "apnacollege",
         content : "I love coding",
     },
     {
+        id:"2b",
         username : "shradha Didi",
         content : "Hard work is important to acchive success",
     },
     {
+        id:"3c",
         username : "Ritu choudhary",
         content : "I got selected for my 1st internship!",
     },
@@ -41,6 +45,12 @@ app.post("/posts", (req,res) => {
     res.redirect("/posts");
 })
 
+
+app.get("/posts/:id", (req,res) => {
+    let { id } = req.params;
+    let post = posts.find((p) => id === p.id);
+    res.render("show.ejs",{post});
+});
 
 app.listen(port, () => {
     console.log("listening to port : 8080");
